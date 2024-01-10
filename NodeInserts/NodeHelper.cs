@@ -322,5 +322,80 @@ namespace NodeClass
         }
         #endregion
 
+        public static int Ex32(Node<int> lis1, Node<int> lis2)
+        {
+            int count1 = 0;
+            int count2 = 0;
+            Node<int> head1 = lis1;
+            Node<int> head2 = lis2;
+
+            while(head1 != null)
+            {
+                count1++;
+                head1 = head1.GetNext();
+            }
+            while(head2 != null)
+            {
+                count2++;
+                head2 = head2.GetNext();
+            }
+            if(count1 > count2)
+            {
+                return 1;
+            }
+            else if(count2 > count1)
+            {
+                return 2;
+            }
+
+            //בדיקה 
+
+            Node<int> node1 = lis1;
+            Node<int> node2 = lis2;
+            while(node1 != null)
+            {
+                if(node1.GetValue() > node2.GetValue())
+                {
+                    return 1;
+                }
+                if(node1.GetValue() < node2.GetValue())
+                {
+                    return 2;
+                }
+
+                node1 = node1.GetNext();
+                node2 = node2.GetNext();
+            }
+            return 0;
+        }
+
+        public static Node<int> Ex33(Node<int> lis1, Node<int> lis2)
+        {
+            Node<int> head1 = lis1; 
+            Node<int> head2 = lis2;
+            Node<int> newNode = lis1;
+            int countis2 = 0;
+
+            while(head1.HasNext())
+            {
+                newNode.SetValue(head1.GetValue());
+                head1 = head1.GetNext();
+                head2 = head2.GetNext();
+                newNode = newNode.GetNext();
+            }
+            while(head1.GetNext() == head2.GetNext())
+            {
+                head1 = head1.GetNext();
+                head2 = head2.GetNext();
+            }
+            while(head1 != null)
+            {
+                newNode.SetValue(head1.GetValue());
+                head1 = head1.GetNext();
+                newNode = newNode.GetNext();
+            }
+            return newNode;
+        }
+
     }
 }
